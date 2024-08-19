@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Causes</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FF6F61, #FFCC70, #6B5B95, #D5AAFF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #007bff;
+            background: linear-gradient(90deg, #FF6F61, #FFCC70);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 105, 180, 0.6);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 105, 180, 1);
+            }
+        }
+
+        .back-home {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-home:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            transition: opacity 1s ease-in-out;
+            display: none;
+        }
+
+        .slideshow-container img.active {
+            display: block;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 50%;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 50% 0 0 50%;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 0 50% 50% 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        /* Mobile Responsive Design */
+        @media screen and (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            h1 {
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        function initSlideshows() {
+            const containers = document.querySelectorAll('.slideshow-container');
+            containers.forEach((container) => {
+                const slides = container.querySelectorAll('img');
+                let slideIndex = 0;
+
+                slides[slideIndex].classList.add('active');
+
+                container.querySelector('.prev').addEventListener('click', () => {
+                    slides[slideIndex].classList.remove('active');
+                    slideIndex = (slideIndex > 0) ? slideIndex - 1 : slides.length - 1;
+                    slides[slideIndex].classList.add('active');
+                });
+
+                container.querySelector('.next').addEventListener('click', () => {
+                    slides[slideIndex].classList.remove('active');
+                    slideIndex = (slideIndex < slides.length - 1) ? slideIndex + 1 : 0;
+                    slides[slideIndex].classList.add('active');
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", initSlideshows);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <a href="{% url 'index' %}" class="back-home">Back to Home</a>
+            <h1>Support Our Causes</h1>
+        </div>
+        {% if causes %}
+            {% for cause in causes %}
+            <div class="cause">
+                <h2>{{ cause.name }}</h2>
+                <div class="slideshow-container">
+                    <img src="https://timess3spore.s3.amazonaws.com/ndata/et_images/desktop_image_webp/8ca595dfbb3168f69e3b400097c7ad4aRural%20Student%20Portal%20pic.webp" alt="Placeholder Image 1" class="active">
+                    <img src="https://miro.medium.com/v2/resize:fit:640/1*k-skjlivGh9SATJDNhzu-w.jpeg" alt="Placeholder Image 2">
+                    <img src="https://www.villagesquare.in/wp-content/uploads/2023/09/shutterstock_2150952259-1-scaled.jpg" alt="Placeholder Image 3">
+                    <a class="prev">&#10094;</a>
+                    <a class="next">&#10095;</a>
+                </div>
+                <p>{{ cause.description }}</p>
+                <form action="{% url 'donate' %}" method="GET">
+                    <input type="hidden" name="cause_id" value="{{ cause.id }}">
+                    <button type="submit">Donate Now</button>
+                </form>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No causes available at the moment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

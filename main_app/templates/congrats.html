@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Congratulations!</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #FF6F61, #FFCC70, #6B5B95, #D5AAFF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: dropIn 1s ease-out;
+        }
+
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 36px;
+            font-weight: 700;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, #FF6F61, #FFCC70);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 105, 180, 0.6);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 105, 180, 1);
+            }
+        }
+
+        p {
+            margin: 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        a:hover {
+            color: #45a049;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .overlay {
+            background: radial-gradient(circle, rgba(255, 223, 186, 0.5), rgba(200, 200, 255, 0.5));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            animation: overlayPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes overlayPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        window.onload = function() {
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.5 },
+                colors: ['#ff0', '#0ff', '#f0f', '#0f0', '#f00']
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Thankyou!</h1>
+        <p>Your generous contribution of <strong>Rs.{{ points }}</strong> will help us continue our mission.</p>
+        <p>We greatly appreciate your support.</p>
+        <a href="{% url 'index' %}">
+            <button>Go Back to Home</button>
+        </a>
+        <a href="{% url 'causespage' id=user.id %}">
+            <button>View Other Causes</button>
+        </a>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

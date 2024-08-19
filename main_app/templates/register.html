@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #63aaf1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #ffffff;
+        }
+
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            background: linear-gradient(45deg, rgba(255, 183, 197, 0.5), rgba(135, 206, 250, 0.5), rgba(255, 240, 245, 0.5));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            z-index: 1;
+            position: relative;
+            animation: dropIn 1s ease-out forwards;
+            transform: translateY(-100%);
+            color: #333333;
+        }
+
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #074c96;
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #70b1f7;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .success-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #5aa0ef;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+
+        .success-message a {
+            color: #0c5460;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .success-message a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow">
+        <img src="https://timess3spore.s3.amazonaws.com/ndata/et_images/desktop_image_webp/8ca595dfbb3168f69e3b400097c7ad4aRural%20Student%20Portal%20pic.webp" alt="Placeholder 1">
+        <img src="https://miro.medium.com/v2/resize:fit:640/1*k-skjlivGh9SATJDNhzu-w.jpeg" alt="Placeholder 2">
+        <img src="https://www.villagesquare.in/wp-content/uploads/2023/09/shutterstock_2150952259-1-scaled.jpg" alt="Placeholder 3">        
+    </div>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Register</h1>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+            
+            <button type="submit">Register</button>
+        </form>
+        
+        {% if id %}
+            <div class="success-message">
+                <p>User registered successfully. User ID: {{ id }}</p>
+                <a href="{% url 'donate'%}">Click here to donate mutual funds</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let slides = document.querySelectorAll('.slideshow img');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 2000); // Change slide every 5 seconds
+    </script>
+</body>
+</html>
